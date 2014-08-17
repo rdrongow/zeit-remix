@@ -1,0 +1,5 @@
+setuptools
+pyramid
+waitress
+
+[test]
