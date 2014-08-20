@@ -29,26 +29,19 @@ def my_view(request):
 
 @view_config(route_name='api', renderer='json')
 class ZonApiProxy(object):
-    def get(self):
-        self.response.headers['Content-Type'] = 'application/json'
-        w = self.response.write
-        data = memcache.get(self.request.path_qs)
-        if (data is not None):
-            w(data)
-            logging.info("load result from memcache")
-        else:
-            api = zon_api.from_url('http://api.zeit.de'+self.request.path_qs)
-            facets = {}
-            if api.result.has_key("facets"):
-                for k,facet in api.result["facets"].items():
-                    facets[k] = self.__create_facets__(facet)
-                    if k == 'keyword':
-                        self.__enrich_facets__(facets[k])
-                api.result['facets'] = facets
-            memcache.add(self.request.path_qs, json.dumps(api.result), (60*15))
-            w(json.dumps(api.result))
+    def __init__(self,context,request):
+	self.request = request
+    
+    def __call__(self):
+        api = zeit.remix.zon_api.from_url('http://api.zeit.de'+self.request.path_qs)
+        facets = {}
+        if api.result.has_key("facets"):
+            for k,facet in api.result["facets"].items():
+                facets[k] = self._create_facets(facet)
+            api.result['facets'] = facets
+        return api.result
 
-    def __create_facets__(self,facet):
+    def _create_facets(self,facet):
         list = []
         for i,v in enumerate(facet):
             if (i%2==0):
@@ -56,7 +49,7 @@ class ZonApiProxy(object):
                              'count':facet[i+1]})
         return list
 
-    def __enrich_facets__(self,facet):
+    def _enrich_facets(self,facet):
         for val in facet:
             data = memcache.get(val['id'])
             if (data is not None):
