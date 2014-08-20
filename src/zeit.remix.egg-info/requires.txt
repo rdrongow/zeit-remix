@@ -1,5 +1,5 @@
 setuptools
 pyramid
-waitress
+pyramid_jinja2
 
 [test]

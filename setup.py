@@ -21,7 +21,7 @@ setup(
     install_requires = [
          'setuptools',
          'pyramid',
-         'waitress',
+         'pyramid_jinja2'
          ],
     namespace_packages=['zeit'],
 )
