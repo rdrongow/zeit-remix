@@ -101,10 +101,7 @@
         wieder ab und die vorherige Tag-Cloud wird erneut erzeugt.
         </p><p>
         Dieses Anwendung basiert auf den Daten der <a
-          href="http://developer.zeit.de">ZEIT ONLINE API</a>, <a
-          href="https://developers.google.com/appengine/">Googles
-          App-Engine</a> und dem <a
-          href="http://jquery.org">jQuery Projekt</a>.
+          href="http://developer.zeit.de">ZEIT ONLINE API</a>.
         </p>
       </div>
       <div id="tool">

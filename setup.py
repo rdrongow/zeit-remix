@@ -21,7 +21,10 @@ setup(
     install_requires = [
          'setuptools',
          'pyramid',
-         'pyramid_jinja2'
+         'pyramid_jinja2',
+	 'redis',
+	 'zope.component',
+	 'zope.interface',
          ],
     namespace_packages=['zeit'],
 )

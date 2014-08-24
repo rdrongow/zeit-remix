@@ -1,5 +1,8 @@
 setuptools
 pyramid
 pyramid_jinja2
+redis
+zope.component
+zope.interface
 
 [test]

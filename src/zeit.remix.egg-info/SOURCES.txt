@@ -1,4 +1,8 @@
 setup.py
+src/pyramid_redis/__init__.py
+src/pyramid_redis/config.py
+src/pyramid_redis/hooks.py
+src/pyramid_redis/turnstile.py
 src/zeit/__init__.py
 src/zeit.remix.egg-info/PKG-INFO
 src/zeit.remix.egg-info/SOURCES.txt
@@ -9,3 +13,4 @@ src/zeit.remix.egg-info/requires.txt
 src/zeit.remix.egg-info/top_level.txt
 src/zeit/remix/__init__.py
 src/zeit/remix/application.py
+src/zeit/remix/zon_api.py
