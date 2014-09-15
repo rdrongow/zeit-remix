@@ -1,3 +1,4 @@
+import cPickle
 import pyramid_jinja2
 import zeit.remix.zon_api
 from pyramid.config import Configurator
@@ -58,9 +59,9 @@ class ZonApiProxy(BaseView):
     
     def _enrich_facets(self,facet):
         for val in facet:
-            data = self.request.redis.get(val['id'])
+            data = cPickle.loads(self.request.redis.get(val['id']))
             if (data is not None):
-                val.update(eval(data))
+                val.update(data)
             else:
                 logging.warning(val['id']+" was not memcached")
 
@@ -78,7 +79,7 @@ class KeywordCacheDb(BaseView):
             if kw['id'] is not None:
                 logging.info("put keyword "+kw["id"])
                 save_to_redis = {'label':kw['lexical'],'type':kw['type']}
-                self.request.redis.set(kw['id'], save_to_redis)
+                self.request.redis.set(kw['id'], cPickle.dumps(save_to_redis))
                 print kw['id']
                 keywords_written['success'] += 1
             else:
