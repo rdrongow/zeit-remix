@@ -59,8 +59,9 @@ class ZonApiProxy(BaseView):
     
     def _enrich_facets(self,facet):
         for val in facet:
-            data = cPickle.loads(self.request.redis.get(val['id']))
+            data = self.request.redis.get(val['id'])
             if (data is not None):
+		data = cPickle.loads(data)
                 val.update(data)
             else:
                 logging.warning(val['id']+" was not memcached")
